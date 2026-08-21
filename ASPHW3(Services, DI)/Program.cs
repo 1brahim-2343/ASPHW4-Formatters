@@ -1,5 +1,6 @@
 
 using ASPHW3_Services__DI_.Data;
+using ASPHW3_Services__DI_.Formatters;
 using ASPHW3_Services__DI_.Repository.Abstract;
 using ASPHW3_Services__DI_.Repository.Concrete;
 using ASPHW3_Services__DI_.Services.Abstract;
@@ -17,6 +18,12 @@ namespace ASPHW3_Services__DI_
             // Add services to the container.
 
             builder.Services.AddControllers();
+
+            builder.Services.AddControllers(options =>
+            {
+                options.OutputFormatters.Add(new BookVCardOutputFormatter());
+                options.InputFormatters.Insert(0, new BookVCardInputFormatter());
+            });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
